@@ -1,7 +1,8 @@
-<button type="button" (click)="loadTenImages()">Load 10</button>
+<button type="button" (click)="loadImages()">Load {{loadAmount}}</button>
 
 <div *ngIf="photoInfo.length">
     <h2><a href="https://www.pexels.com">Photos provided by Pexels</a></h2>
+    <h3 *ngIf="amountOfPicturesLoaded > 0">Loaded {{amountOfPicturesLoaded}} images</h3>
     <div *ngFor="let photo of photoInfo">
         <a href="{{photo.url}}"><img src="{{photo.src.small}}" alt="{{photo.alt}}"></a>
         <p>Photo by <a href="{{photo.photographer_url}}">{{photo.photographer}}</a></p>

@@ -1,27 +1,34 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Photo, PhotosWithTotalResults, createClient } from 'pexels';
 
 @Component({
-  selector: 'app-image-10-loader',
+  selector: 'app-image-loader',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './image-10-loader.component.html',
-  styleUrl: './image-10-loader.component.css'
+  templateUrl: './image-loader.component.html',
+  styleUrl: './image-loader.component.css'
 })
-export class Image10LoaderComponent {
+export class ImageLoaderComponent implements OnInit {
   public photoInfo : Photo[] = []
 
-  loadTenImages(): void {
+  @Input() loadAmount = 0;
+  public amountOfPicturesLoaded = 0;
+
+  ngOnInit(): void {
+    this.loadImages();
+  }
+
+  loadImages(): void {
     const client = createClient('8O3ITulBd3IwZW3T6EbbeILdffoBpma48W0ObpVqRfysfvyBTX0eveeL');
     const query = 'Dogs';
-    
 
-    client.photos.search({ query, per_page: 100 })
+    client.photos.search({ query, per_page: this.loadAmount })
     .then(data => {
       const photos : PhotosWithTotalResults = data as PhotosWithTotalResults;
       this.photoInfo = photos.photos;
+      this.amountOfPicturesLoaded = this.photoInfo.length;
     }).catch(ex => {
       if(ex.response) {
           const error = ex.response.status === 404 ? 'Page not found':'Something wrong has happened';
@@ -29,9 +36,6 @@ export class Image10LoaderComponent {
       }
     })
   }
-
-  
-
 }
 
 /*

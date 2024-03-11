@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Image10LoaderComponent } from './image-10-loader.component';
+import { ImageLoaderComponent } from './image-loader.component';
 
-describe('Image10LoaderComponent', () => {
-  let component: Image10LoaderComponent;
-  let fixture: ComponentFixture<Image10LoaderComponent>;
+describe('ImageLoaderComponent', () => {
+  let component: ImageLoaderComponent;
+  let fixture: ComponentFixture<ImageLoaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Image10LoaderComponent]
+      imports: [ImageLoaderComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(Image10LoaderComponent);
+    fixture = TestBed.createComponent(ImageLoaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

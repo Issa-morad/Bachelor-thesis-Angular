@@ -1,25 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { info } from 'console';
 
 import { Videos, createClient, Video } from 'pexels';
 
 @Component({
-  selector: 'app-video-10-loader',
+  selector: 'app-video-loader',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './video-10-loader.component.html',
-  styleUrl: './video-10-loader.component.css'
+  templateUrl: './video-loader.component.html',
+  styleUrl: './video-loader.component.css'
 })
-export class Video10LoaderComponent {
+export class VideoLoaderComponent implements OnInit{
 
   public videoInfo: Video[] = new Array()
 
-  loadTenVideos(): void {
+  @Input() loadAmount = 0;
+  public amountOfVideosLoaded = 0;
+  
+  ngOnInit(): void {
+    this.loadVideos();
+  }
+
+  loadVideos(): void {
     const client = createClient('8O3ITulBd3IwZW3T6EbbeILdffoBpma48W0ObpVqRfysfvyBTX0eveeL');
     const query = 'Dogs';
 
-    client.videos.search({ query, per_page: 10, orientation: "portrait", size: "small" }).then(data => {
+    client.videos.search({ query, per_page: this.loadAmount, orientation: "portrait", size: "small" }).then(data => {
       const videos : Videos = data as Videos;
       //this.videoInfo = videos.videos
 
@@ -47,6 +54,7 @@ export class Video10LoaderComponent {
         }
         this.videoInfo.push(info)
       }
+      this.amountOfVideosLoaded = this.videoInfo.length;
     }).catch(ex => {
       if(ex.response) {
           const error = ex.response.status === 404 ? 'Page not found':'Something wrong has happened';

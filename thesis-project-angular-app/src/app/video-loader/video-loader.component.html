@@ -1,7 +1,8 @@
-<button type="button" (click)="loadTenVideos()">Load 10</button>
+<button type="button" (click)="loadVideos()">Load {{loadAmount}}</button>
 
 <div *ngIf="videoInfo.length">
     <h2><a href="https://www.pexels.com">Photos provided by Pexels</a></h2>
+    <h3 *ngIf="amountOfVideosLoaded > 0">Loaded {{amountOfVideosLoaded}} videos</h3>
     <div *ngFor="let video of videoInfo">
         <a href="{{video.url}}"><video height="{{video.video_files[0].height}}" width="{{video.video_files[0].width}}" controls><source src="{{video.video_files[0].link}}"/></video></a>
         <p>Video by <a href="{{video.user.url}}">{{video.user.name}}</a></p>
